@@ -1,9 +1,10 @@
-import React from 'react';
+
 import ProfilKarti from './components/ProfilKarti';
-// import FeedbackForm from './components/FeedbackForm'; 
+import FeedbackForm from './components/FeedbackForm'; 
 
 
 export default function App() {
-  return <ProfilKarti />;
-  // return <FeedbackForm />;
+  // return <ProfilKarti />;
+  return <FeedbackForm />;
+
 }

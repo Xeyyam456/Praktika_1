@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -8,11 +8,18 @@ import {
   View,
   Image,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 
 export default function ProfilKarti() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const theme = isDarkMode ? dark : light;
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => setRefreshing(false), 1000);
+  }, []);
 
   return (
     <SafeAreaView style={[styles.safeArea, {backgroundColor: theme.bg}]}>
@@ -20,7 +27,16 @@ export default function ProfilKarti() {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={theme.bg}
       />
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={theme.primary}
+            colors={[theme.primary]}
+          />
+        }>
         <View style={[styles.header, {backgroundColor: theme.primary}]}>
           <Text style={styles.headerTitle}>Profil Kartı</Text>
         </View>

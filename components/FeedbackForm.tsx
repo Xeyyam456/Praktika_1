@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -7,14 +7,23 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  RefreshControl,
 } from 'react-native';
 
 export default function FeedbackForm() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    Keyboard.dismiss();
+    setRefreshing(true);
+    setName('');
+    setMessage('');
+    setTimeout(() => setRefreshing(false), 1000);
+  }, []);
 
   function handleSubmit() {
     if (!name.trim() || !message.trim()) {
@@ -31,45 +40,53 @@ export default function FeedbackForm() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" backgroundColor="#F2F4F7" />
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          <Text style={styles.title}>Rəy Formu</Text>
-          <Text style={styles.subtitle}>Fikirlərinizi bizimlə paylaşın</Text>
-
-          <Text style={styles.label}>Adınız</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Adınızı daxil edin..."
-            placeholderTextColor="#9CA3AF"
-            value={name}
-            onChangeText={setName}
-            returnKeyType="next"
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={['#63ff78']}
+            tintColor="#6C63FF"
           />
+        }>
+        <Text style={styles.title}>Rəy Formu</Text>
+        <Text style={styles.subtitle}>Fikirlərinizi bizimlə paylaşın</Text>
 
-          <Text style={styles.label}>Mesajınız</Text>
-          <TextInput
-            style={[styles.input, styles.textArea]}
-            placeholder="Rəyinizi yazın..."
-            placeholderTextColor="#9CA3AF"
-            value={message}
-            onChangeText={setMessage}
-            multiline
-            numberOfLines={5}
-            returnKeyType="done"
-            onSubmitEditing={Keyboard.dismiss}
-          />
+        <Text style={styles.label}>Adınız</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Adınızı daxil edin..."
+          placeholderTextColor="#9CA3AF"
+          value={name}
+          onChangeText={setName}
+          returnKeyType="next"
+        />
 
-          <TouchableOpacity
-            style={[
-              styles.button,
-              (!name.trim() || !message.trim()) && styles.buttonDisabled,
-            ]}
-            onPress={handleSubmit}
-            activeOpacity={0.8}>
-            <Text style={styles.buttonText}>Göndər 📨</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </TouchableWithoutFeedback>
+        <Text style={styles.label}>Mesajınız</Text>
+        <TextInput
+          style={[styles.input, styles.textArea]}
+          placeholder="Rəyinizi yazın..."
+          placeholderTextColor="#9CA3AF"
+          value={message}
+          onChangeText={setMessage}
+          multiline
+          numberOfLines={5}
+          returnKeyType="done"
+          onSubmitEditing={Keyboard.dismiss}
+        />
+
+        <TouchableOpacity
+          style={[
+            styles.button,
+            (!name.trim() || !message.trim()) && styles.buttonDisabled,
+          ]}
+          onPress={handleSubmit}
+          activeOpacity={0.8}>
+          <Text style={styles.buttonText}>Göndər 📨</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 }
