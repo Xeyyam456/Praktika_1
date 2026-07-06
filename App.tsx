@@ -13,10 +13,7 @@ export default function App() {
     BootSplash.hide({ fade: true });
   }, []);
 
-  // return <ProfilKarti />;
-  // return <FeedbackForm />;
-  // return <UserList />;
-  // return <TodoApp />;
+ 
   return  <UserList />;
 
 }
