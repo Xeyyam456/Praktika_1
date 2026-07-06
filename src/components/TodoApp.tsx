@@ -17,19 +17,13 @@ type Todo = {
   title: string;
 };
 
-let idCounter = 1;
-
 export default function TodoApp(): React.JSX.Element {
-  const [todos, setTodos] = useState<Todo[]>([
-    { id: idCounter++, title: 'React Native öyrən' },
-    { id: idCounter++, title: 'Gesture Handler-i araşdır' },
-    { id: idCounter++, title: 'Todo App yaz' },
-  ]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [text, setText] = useState<string>('');
 
   const addTodo = (): void => {
     if (text.trim().length === 0) return;
-    setTodos((prev) => [...prev, { id: idCounter++, title: text.trim() }]);
+    setTodos((prev) => [...prev, { id: Date.now(), title: text.trim() }]);
     setText('');
   };
 
