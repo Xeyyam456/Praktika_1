@@ -6,9 +6,9 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  FlatList,
   TouchableOpacity,
 } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 
@@ -66,9 +66,9 @@ export default function TodoApp(): React.JSX.Element {
           </TouchableOpacity>
         </View>
 
-        <FlatList
+        <FlashList
           data={todos}
-          keyExtractor={(item) => item.id.toString()}
+          // keyExtractor={(item) => item.id.toString()}
           renderItem={renderItem}
         />
       </View>
