@@ -1,6 +1,4 @@
-/**
- * SADƏ TODO APP (TypeScript) - sola sürüşdürüb Delete
- */
+
 
 import React, { useState } from 'react';
 import {
@@ -58,7 +56,7 @@ export default function TodoApp(): React.JSX.Element {
   );
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={styles.root}>
       <View style={styles.container}>
         <Text style={styles.header}>Todo List</Text>
 
@@ -85,6 +83,9 @@ export default function TodoApp(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     paddingTop: 60,

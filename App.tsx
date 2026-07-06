@@ -1,9 +1,9 @@
 
 import { useEffect } from 'react';
 import BootSplash from 'react-native-bootsplash';
-// import ProfilKarti from './components/ProfilKarti';
-// import FeedbackForm from './components/FeedbackForm';
-import TodoApp from './components/TodoApp';
+// import ProfilKarti from './src/components/ProfilKarti';
+// import FeedbackForm from './src/components/FeedbackForm';
+import TodoApp from './src/components/TodoApp';
 
 
 export default function App() {
